@@ -29,6 +29,7 @@ import org.apache.poi.openxml4j.opc.PackageAccess;
 import org.apache.poi.openxml4j.opc.PackagePart;
 import org.apache.poi.openxml4j.opc.PackageRelationshipCollection;
 import org.apache.poi.util.LocaleUtil;
+import org.apache.poi.xdgf.usermodel.XmlVisioDocument;
 import org.apache.poi.xslf.extractor.XSLFExtractor;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xslf.usermodel.XSLFRelation;
@@ -177,6 +178,8 @@ public class OOXMLExtractorFactory {
                         "Expecting UserModel based POI OOXML extractor with a document, but none" +
                                 " found. " +
                                 "The extractor returned was a " + poiExtractor);
+            } else if (document instanceof XmlVisioDocument) {
+                extractor = new XDGFVisioExtractorDecorator(context, poiExtractor);
             } else if (document instanceof XMLSlideShow) {
                 extractor = new XSLFPowerPointExtractorDecorator(metadata, context,
                         (org.apache.poi.xslf.extractor.XSLFExtractor) poiExtractor);

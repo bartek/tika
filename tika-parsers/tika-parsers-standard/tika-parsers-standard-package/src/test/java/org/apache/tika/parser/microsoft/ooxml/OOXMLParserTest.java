@@ -158,4 +158,12 @@ public class OOXMLParserTest extends TikaTest {
             assertNull(m.get(TikaCoreProperties.EMBEDDED_EXCEPTION));
         }
     }
+
+    @Test
+    public void testVsdxMermaidExtraction() throws Exception {
+        List<Metadata> metadataList = getRecursiveMetadata("testVISIO.vsdx");
+        String content = metadataList.get(0).get(TikaCoreProperties.TIKA_CONTENT);
+        System.out.println(content);
+        assertContains("flowchart TD", content);
+    }
 }
